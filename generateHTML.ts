@@ -1,21 +1,72 @@
 import * as fs from 'fs';
+const fetch = require('node-fetch').default;
 
-interface Movie {
-    title : string;
-    director : string;
-    year: number;
+
+
+interface TMDbMovie {
+
+    title: string;
+    popularity: number;
+    director: string;
+    release_date: string;
+    original_language:string;
+    overview:string;
+ 
 }
 
-function generateMovieList (movies: Movie[]): string{
+interface TMDbResponse {
+    results: TMDbMovie[];
+}
+
+
+function generateMovieList(movies: TMDbMovie[]): string {
     let html = '<ul>';
-        movies.forEach(movie =>{
-            html += `<li>${movie.title} (${movie.year}) - Directed by ${movie.director}</li>`;
-
-        });
-        html += '</ul>';
-        return html;
+    movies.forEach(movie => {
+        html += `<li>${movie.title} (${movie.popularity}) - Directed by ${movie.release_date}</li>`;
+    });
+    html += '</ul>';
+    return html;
 }
 
+function generateMoviePage(movie: TMDbMovie): string {
+    return `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${movie.title}</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                }
+                .movie-details {
+                    padding: 20px;
+                }
+                .movie-title {
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+                .movie-director {
+                    color: #666;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="movie-details">
+                <h1 class="movie-title">${movie.title} (${movie.release_date})</h1>
+                <p class="movie-director"><strong>Director:</strong> ${movie.director}</p>
+                <p class="movie-release"><strong>Release Date:</strong> ${movie.release_date}</p>
+                <p class="movie-overview"><strong>Overviwe:</strong> ${movie.overview}</p>
+                <p class="movie-original"><strong>Original Lenguage:</strong> ${movie.original_language}</p>
+               
+            </div>
+        </body>
+        </html>
+    `;
+}
 function generateHTMLPage(content: string): string {
     return `
         <!DOCTYPE html>
@@ -24,26 +75,95 @@ function generateHTMLPage(content: string): string {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Movie List</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                }
+                .movie-list {
+                    list-style-type: none;
+                    padding: 0;
+                }
+                .movie-item {
+                    padding: 10px;
+                    border-bottom: 1px solid #ccc;
+                    cursor: pointer;
+                }
+                .movie-item:hover {
+                    background-color: #f4f4f4;
+                }
+                .movie-title {
+                    font-weight: bold;
+                }
+                .movie-release {
+                    color: red;
+                }
+                 h1{
+                    margin: 1;
+                    padding: 0.5;
+                    
+                 }
+            </style>
         </head>
         <body>
             <h1>List of Movies</h1>
             ${content}
+            <div id="movie-details"></div>
+            
         </body>
         </html>
     `;
 }
 
-function main(): void {
+
+async function main(): Promise<void> {
     try {
-        const rawData = fs.readFileSync('movies.json', 'utf-8');
-        const movies: Movie[] = JSON.parse(rawData);
-        const movieListHTML = generateMovieList(movies);
-        const htmlPage = generateHTMLPage(movieListHTML);
-        fs.writeFileSync('index.html', htmlPage);
-        console.log('HTML page generated successfully!');
+        const movies: TMDbMovie[] = await fetchMovies();
+        
+        // Genera  páginas individuales para cada película
+        movies.forEach((movie, index) => {
+            const moviePageHTML = generateMoviePage(movie);
+            fs.writeFileSync(`movie_${index}.html`, moviePageHTML);
+        });
+        
+        // Genera la página HTML principal con enlaces a las páginas individuales de películas
+        const movieLinksHTML = movies.map((movie, index) => {
+            return `<li><a href="movie_${index}.html">${movie.title} (${movie.release_date})</a></li>`;
+        }).join('');
+        const mainPageHTML = generateHTMLPage(`<ul>${movieLinksHTML}</ul>`);
+        fs.writeFileSync('index.html', mainPageHTML);
+        
+        console.log('Páginas HTML generadas exitosamente!');
     } catch (error) {
-        console.error('Error generating HTML page:', error);
+        console.error('Error generando páginas HTML:', error);
     }
 }
+
+async function fetchMovies(): Promise<TMDbMovie[]> {
+    const apiKey = '3ddf4b9da4c513d5f58b3e9e92b4bc87'; //este es la apikey de tmdb
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Error al obtener películas');
+        }
+        const data = await response.json() as TMDbResponse;
+        console.log(data);
+        return data.results.map(movie => ({
+            title: movie.title,
+            release_date: movie.release_date,
+            overview: movie.overview,
+            popularity: movie.popularity,
+            director: movie.director,
+            original_language: movie.original_language
+        }));
+    } catch (error) {
+        console.error('Error obteniendo películas:', error);
+        return [];
+    }
+}
+
 
 main();
