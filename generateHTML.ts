@@ -7,10 +7,11 @@ interface TMDbMovie {
 
     title: string;
     popularity: number;
-    director: string;
+    vote_average: string;
     release_date: string;
     original_language:string;
     overview:string;
+    poster_path?: string | null; // Hacemos que la propiedad poster_path sea opcional
  
 }
 
@@ -52,15 +53,20 @@ function generateMoviePage(movie: TMDbMovie): string {
                 .movie-director {
                     color: #666;
                 }
+                .movie-release {
+                    color: #666;
+                }   
+
             </style>
         </head>
         <body>
             <div class="movie-details">
                 <h1 class="movie-title">${movie.title} (${movie.release_date})</h1>
-                <p class="movie-director"><strong>Director:</strong> ${movie.director}</p>
+                <p class="movie-average"><strong>Vote Average:</strong> ${movie.vote_average}</p>
                 <p class="movie-release"><strong>Release Date:</strong> ${movie.release_date}</p>
                 <p class="movie-overview"><strong>Overviwe:</strong> ${movie.overview}</p>
                 <p class="movie-original"><strong>Original Lenguage:</strong> ${movie.original_language}</p>
+                <p class="movie-path"><strong> Poster:</strong> ${movie.poster_path}</p>
                
             </div>
         </body>
@@ -156,14 +162,17 @@ async function fetchMovies(): Promise<TMDbMovie[]> {
             release_date: movie.release_date,
             overview: movie.overview,
             popularity: movie.popularity,
-            director: movie.director,
-            original_language: movie.original_language
+            vote_average: movie.vote_average,
+            original_language: movie.original_language,
+            poster_url: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null // Construye la URL de la imagen de la película
         }));
     } catch (error) {
         console.error('Error obteniendo películas:', error);
         return [];
     }
 }
+
+
 
 
 main();
