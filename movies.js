@@ -1,0 +1,27 @@
+[
+  {
+    "title": "The Shawshank Redemptiom",
+    "year": 1994,
+    "director": "Frank Darabont",
+  },
+  {
+    "title": "The Godfather",
+    "year": 1972,
+    "director": "Francis Ford Coppola",
+  },
+  {
+    "title":"The Dark Knight",
+    "year": 2008,
+    "director": "Christopher Nolan",
+  },
+  {
+    "title": "Star Wars: Episodio IV ",
+    "year": 1997,
+    "director": "George Lucas",
+  },
+  {
+    "title": "Cars",
+    "year": 2008,
+    "director": "John Lasseter y Joe Ranft ",
+  },
+];
