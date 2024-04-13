@@ -38,26 +38,33 @@ function generateMoviePage(movie: TMDbMovie): string {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>${movie.title}</title>
             <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                }
-                .movie-details {
-                    padding: 20px;
-                }
-                .movie-title {
-                    font-size: 24px;
-                    font-weight: bold;
-                }
-                .movie-director {
-                    color: #666;
-                }
-                .movie-release {
-                    color: #666;
-                }   
-
-            </style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            .movie-details {
+                padding: 20px;
+                text-align: center; /* Centra el contenido */
+            }
+            .movie-title {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 10px; /* Agrega espacio debajo del título */
+            }
+            .movie-director {
+                color: #666;
+            }
+            .movie-release {
+                color: #666;
+            }
+            .movie-poster {
+                margin-bottom: 20px;
+            }
+            .movie-poster img {
+                max-width: 100%;
+            }
+        </style>
         </head>
         <body>
             <div class="movie-details">
@@ -92,6 +99,7 @@ function generateHTMLPage(content: string): string {
                 .movie-list {
                     list-style-type: none;
                     padding: 0;
+                    background: gray;
                 }
                 .movie-item {
                     padding: 10px;
@@ -103,7 +111,7 @@ function generateHTMLPage(content: string): string {
                 }
                 .movie-title {
                     font-weight: bold;
-                   
+                    color: blue; 
                 }
                 .movie-release {
                     color: red;
