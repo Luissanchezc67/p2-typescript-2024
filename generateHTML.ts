@@ -54,10 +54,7 @@ function generateMoviePage(movie: TMDbMovie): string {
             .movie-title {
                 font-size: 24px;
                 font-weight: bold;
-                margin-bottom: 10px; /* Agrega espacio debajo del título */
-            }
-            .movie-director {
-                color: #666;
+                margin-bottom: 10px; 
             }
             .movie-release {
                 color: #666;
@@ -68,6 +65,7 @@ function generateMoviePage(movie: TMDbMovie): string {
             .movie-poster img {
                 max-width: 100%;
             }
+            
         </style>
         </head>
         <body>
@@ -119,8 +117,9 @@ function generateHTMLPage(content: string): string {
             .movie-item {
                 padding: 10px;
                 border-bottom: 1px solid #ccc;
-                cursor: pointer;
-                transition: background-color 0.3s;
+                border-radius: 5px; /* Añadir bordes redondeados */
+                margin-bottom: 10px; /* Espacio entre películas */
+                background-color: #fff; /* Color de fondo */
             }
             .movie-item:hover {
                 background-color: #f4f4f4;
@@ -191,7 +190,7 @@ async function fetchMovies(): Promise<TMDbMovie[]> {
             popularity: movie.popularity,
             vote_average: movie.vote_average,
             original_language: movie.original_language,
-            poster_path:  `https://image.tmdb.org/t/p/w500${movie.poster_path}`  // Construye la URL de la imagen de la película// Construye la URL de la imagen de la película
+            poster_path:  `https://image.tmdb.org/t/p/w500${movie.poster_path}`  //Construye la URL de la imagen de la película
         }));
     } catch (error) {
         console.error('Error obteniendo películas:', error);
