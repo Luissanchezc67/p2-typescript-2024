@@ -1,49 +1,61 @@
 
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Movie List</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                    
-                }
-                .movie-list {
-                    list-style-type: none;
-                    padding: 0;
-                    background: gray;
-                }
-                .movie-item {
-                    padding: 10px;
-                    border-bottom: 1px solid #ccc;
-                    cursor: pointer;
-                }
-                .movie-item:hover {
-                    background-color: #f4f4f4;
-                }
-                .movie-title {
-                    font-weight: bold;
-                    color: blue; 
-                }
-                .movie-release {
-                    color: red;
-                }
-                 h1{
-                    margin: 1;
-                    padding: 0.5;
-                    
-                 }
-            </style>
-        </head>
-        <body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Movie List</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f9f9f9;
+            }
+            .navbar {
+                background-color: #333; /* Color de fondo de la barra */
+                color: #fff; /* Color del texto */
+                padding: 10px 0; /* Espacio de relleno */
+                text-align: center; /* Alinear el texto al centro */
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .movie-list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+            .movie-item {
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            .movie-item:hover {
+                background-color: #f4f4f4;
+            }
+            .movie-title {
+                font-weight: bold;
+                color: #666;
+            }
+            .movie-release {
+                color: #999;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
             <h1>List of Movies</h1>
-            <ul><li><a href="movie_0.html">Dune: Part Two (2024-02-27)</a></li><li><a href="movie_1.html">Kung Fu Panda 4 (2024-03-02)</a></li><li><a href="movie_2.html">Godzilla x Kong: The New Empire (2024-03-27)</a></li><li><a href="movie_3.html">Alienoid (2022-07-20)</a></li><li><a href="movie_4.html">The Wages of Fear (2024-03-28)</a></li><li><a href="movie_5.html">Road House (2024-03-08)</a></li><li><a href="movie_6.html">Madame Web (2024-02-14)</a></li><li><a href="movie_7.html">After the Pandemic (2022-03-01)</a></li><li><a href="movie_8.html">The Tearsmith (2024-04-03)</a></li><li><a href="movie_9.html">Heart of the Hunter (2024-03-28)</a></li><li><a href="movie_10.html">Creation of the Gods I: Kingdom of Storms (2023-07-20)</a></li><li><a href="movie_11.html">Migration (2023-12-06)</a></li><li><a href="movie_12.html">The Adventures of Maid Marian (2022-05-09)</a></li><li><a href="movie_13.html">Baghead (2023-12-28)</a></li><li><a href="movie_14.html">Imaginary (2024-03-06)</a></li><li><a href="movie_15.html">Penoza: The Final Chapter (2019-11-28)</a></li><li><a href="movie_16.html">Hunters (2021-09-13)</a></li><li><a href="movie_17.html">Damsel (2024-03-07)</a></li><li><a href="movie_18.html">No Way Up (2024-01-18)</a></li><li><a href="movie_19.html">Dune (2021-09-15)</a></li></ul>
+        </div>
+        <div class="container">
+            <ul class="movie-list">
+                <ul><li><a href="movie_0.html">Dune: Part Two (2024-02-27)</a></li><li><a href="movie_1.html">Kung Fu Panda 4 (2024-03-02)</a></li><li><a href="movie_2.html">Godzilla x Kong: The New Empire (2024-03-27)</a></li><li><a href="movie_3.html">Alienoid (2022-07-20)</a></li><li><a href="movie_4.html">The Wages of Fear (2024-03-28)</a></li><li><a href="movie_5.html">Road House (2024-03-08)</a></li><li><a href="movie_6.html">Madame Web (2024-02-14)</a></li><li><a href="movie_7.html">After the Pandemic (2022-03-01)</a></li><li><a href="movie_8.html">The Tearsmith (2024-04-03)</a></li><li><a href="movie_9.html">Heart of the Hunter (2024-03-28)</a></li><li><a href="movie_10.html">Creation of the Gods I: Kingdom of Storms (2023-07-20)</a></li><li><a href="movie_11.html">Migration (2023-12-06)</a></li><li><a href="movie_12.html">The Adventures of Maid Marian (2022-05-09)</a></li><li><a href="movie_13.html">Baghead (2023-12-28)</a></li><li><a href="movie_14.html">Imaginary (2024-03-06)</a></li><li><a href="movie_15.html">Penoza: The Final Chapter (2019-11-28)</a></li><li><a href="movie_16.html">Hunters (2021-09-13)</a></li><li><a href="movie_17.html">Damsel (2024-03-07)</a></li><li><a href="movie_18.html">No Way Up (2024-01-18)</a></li><li><a href="movie_19.html">Dune (2021-09-15)</a></li></ul>
+            </ul>
             <div id="movie-details"></div>
-            
-        </body>
-        </html>
+        </div>
+    </body>
+    </html>
     

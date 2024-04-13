@@ -46,6 +46,10 @@ function generateMoviePage(movie: TMDbMovie): string {
             .movie-details {
                 padding: 20px;
                 text-align: center; /* Centra el contenido */
+                background-color: #f5f5f5;
+                border: 6px solid #000080; /* Borde de 2 píxeles sólido, color gris claro */
+                    border-radius: 25px; /* Bordes redondeados */
+                    box-shadow: 1 0 15px rgba(0, 0, 0, 0.1); /* Sombra ligera */
             }
             .movie-title {
                 font-size: 24px;
@@ -83,53 +87,65 @@ function generateMoviePage(movie: TMDbMovie): string {
 }
 function generateHTMLPage(content: string): string {
     return `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Movie List</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                    
-                }
-                .movie-list {
-                    list-style-type: none;
-                    padding: 0;
-                    background: gray;
-                }
-                .movie-item {
-                    padding: 10px;
-                    border-bottom: 1px solid #ccc;
-                    cursor: pointer;
-                }
-                .movie-item:hover {
-                    background-color: #f4f4f4;
-                }
-                .movie-title {
-                    font-weight: bold;
-                    color: blue; 
-                }
-                .movie-release {
-                    color: red;
-                }
-                 h1{
-                    margin: 1;
-                    padding: 0.5;
-                    
-                 }
-            </style>
-        </head>
-        <body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Movie List</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f9f9f9;
+            }
+            .navbar {
+                background-color: #333; /* Color de fondo de la barra */
+                color: #fff; /* Color del texto */
+                padding: 10px 0; /* Espacio de relleno */
+                text-align: center; /* Alinear el texto al centro */
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .movie-list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+            .movie-item {
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            .movie-item:hover {
+                background-color: #f4f4f4;
+            }
+            .movie-title {
+                font-weight: bold;
+                color: #666;
+            }
+            .movie-release {
+                color: #999;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
             <h1>List of Movies</h1>
-            ${content}
+        </div>
+        <div class="container">
+            <ul class="movie-list">
+                ${content}
+            </ul>
             <div id="movie-details"></div>
-            
-        </body>
-        </html>
+        </div>
+    </body>
+    </html>
     `;
 }
 
