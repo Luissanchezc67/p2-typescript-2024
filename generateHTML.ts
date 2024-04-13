@@ -11,8 +11,7 @@ interface TMDbMovie {
     release_date: string;
     original_language:string;
     overview:string;
-    poster_path?: string | null; // Hacemos que la propiedad poster_path sea opcional
- 
+    poster_path?: string ;
 }
 
 interface TMDbResponse {
@@ -30,6 +29,7 @@ function generateMovieList(movies: TMDbMovie[]): string {
 }
 
 function generateMoviePage(movie: TMDbMovie): string {
+    const posterHTML = movie.poster_path ? `<a href="${movie.poster_path}" target="_blank"><img src="${movie.poster_path}" alt="${movie.title}"></a>` : 'No poster available';
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -66,7 +66,8 @@ function generateMoviePage(movie: TMDbMovie): string {
                 <p class="movie-release"><strong>Release Date:</strong> ${movie.release_date}</p>
                 <p class="movie-overview"><strong>Overviwe:</strong> ${movie.overview}</p>
                 <p class="movie-original"><strong>Original Lenguage:</strong> ${movie.original_language}</p>
-                <p class="movie-path"><strong> Poster:</strong> ${movie.poster_path}</p>
+                <p class="movie-path"><strong> Poster:</strong>${movie.poster_path}</p>
+                <div class="movie-poster">${posterHTML}</div>
                
             </div>
         </body>
@@ -86,6 +87,7 @@ function generateHTMLPage(content: string): string {
                     font-family: Arial, sans-serif;
                     margin: 0;
                     padding: 0;
+                    
                 }
                 .movie-list {
                     list-style-type: none;
@@ -101,6 +103,7 @@ function generateHTMLPage(content: string): string {
                 }
                 .movie-title {
                     font-weight: bold;
+                   
                 }
                 .movie-release {
                     color: red;
@@ -164,7 +167,7 @@ async function fetchMovies(): Promise<TMDbMovie[]> {
             popularity: movie.popularity,
             vote_average: movie.vote_average,
             original_language: movie.original_language,
-            poster_url: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null // Construye la URL de la imagen de la película
+            poster_path:  `https://image.tmdb.org/t/p/w500${movie.poster_path}`  // Construye la URL de la imagen de la película// Construye la URL de la imagen de la película
         }));
     } catch (error) {
         console.error('Error obteniendo películas:', error);
