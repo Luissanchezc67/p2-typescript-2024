@@ -86,39 +86,50 @@ function main() {
 }
 function fetchMovies() {
     return __awaiter(this, void 0, void 0, function () {
-        var apiKey, url, response, data, error_2;
+        var apiKey, totalPages, movies, page, url, response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     apiKey = '3ddf4b9da4c513d5f58b3e9e92b4bc87';
-                    url = "https://api.themoviedb.org/3/movie/popular?api_key=".concat(apiKey, "&language=en-US&page=1");
+                    totalPages = 3;
+                    movies = [];
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch(url)];
+                    _a.trys.push([1, 7, , 8]);
+                    page = 1;
+                    _a.label = 2;
                 case 2:
+                    if (!(page <= totalPages)) return [3 /*break*/, 6];
+                    url = "https://api.themoviedb.org/3/movie/popular?api_key=".concat(apiKey, "&language=en-US&page=").concat(page);
+                    return [4 /*yield*/, fetch(url)];
+                case 3:
                     response = _a.sent();
                     if (!response.ok) {
                         throw new Error('Error al obtener películas');
                     }
                     return [4 /*yield*/, response.json()];
-                case 3:
-                    data = _a.sent();
-                    console.log(data);
-                    return [2 /*return*/, data.results.map(function (movie) { return ({
-                            title: movie.title,
-                            release_date: movie.release_date,
-                            overview: movie.overview,
-                            popularity: movie.popularity,
-                            vote_average: movie.vote_average,
-                            original_language: movie.original_language,
-                            poster_path: "https://image.tmdb.org/t/p/w500".concat(movie.poster_path) //Construye la URL de la imagen de la película
-                        }); })];
                 case 4:
+                    data = _a.sent();
+                    movies = movies.concat(data.results);
+                    console.log(data);
+                    _a.label = 5;
+                case 5:
+                    page++;
+                    return [3 /*break*/, 2];
+                case 6: return [2 /*return*/, movies.map(function (movie) { return ({
+                        title: movie.title,
+                        release_date: movie.release_date,
+                        overview: movie.overview,
+                        popularity: movie.popularity,
+                        vote_average: movie.vote_average,
+                        original_language: movie.original_language,
+                        poster_path: "https://image.tmdb.org/t/p/w500".concat(movie.poster_path)
+                    }); })];
+                case 7:
                     error_2 = _a.sent();
                     console.error('Error obteniendo películas:', error_2);
                     return [2 /*return*/, []];
-                case 5: return [2 /*return*/];
+                case 8: return [2 /*return*/];
             }
         });
     });

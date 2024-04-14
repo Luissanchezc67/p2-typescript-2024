@@ -160,23 +160,31 @@ async function main(): Promise<void> {
 
 async function fetchMovies(): Promise<TMDbMovie[]> {
     const apiKey = '3ddf4b9da4c513d5f58b3e9e92b4bc87'; //este es la apikey de tmdb
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
+    const totalPages = 3;
+    let movies: TMDbMovie[] = [];
 
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Error al obtener películas');
+        for (let page = 1; page <= totalPages; page++) {
+            const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`;
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error('Error al obtener películas');
+            }
+
+            const data = await response.json() as TMDbResponse;
+            movies = movies.concat(data.results);
+            console.log(data);
         }
-        const data = await response.json() as TMDbResponse;
-        console.log(data);
-        return data.results.map(movie => ({
+
+        return movies.map(movie => ({
             title: movie.title,
             release_date: movie.release_date,
             overview: movie.overview,
             popularity: movie.popularity,
             vote_average: movie.vote_average,
             original_language: movie.original_language,
-            poster_path:  `https://image.tmdb.org/t/p/w500${movie.poster_path}`  //Construye la URL de la imagen de la película
+            poster_path:  `https://image.tmdb.org/t/p/w500${movie.poster_path}`
         }));
     } catch (error) {
         console.error('Error obteniendo películas:', error);
