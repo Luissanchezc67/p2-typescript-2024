@@ -48,8 +48,8 @@ function generateMoviePage(movie: TMDbMovie): string {
                 text-align: center; /* Centra el contenido */
                 background-color: #f5f5f5;
                 border: 6px solid #000080; /* Borde de 2 píxeles sólido, color gris claro */
-                    border-radius: 25px; /* Bordes redondeados */
-                    box-shadow: 1 0 15px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+                border-radius: 25px; /* Bordes redondeados */
+                box-shadow: 1 0 15px rgba(0, 0, 0, 0.1); /* Sombra ligera */
             }
             .movie-title {
                 font-size: 24px;
@@ -108,28 +108,14 @@ function generateHTMLPage(content: string): string {
                 max-width: 800px;
                 margin: 0 auto;
                 padding: 20px;
+                list-style-type: katakana-iroha;;
+                padding: 0.5;
+                margin: 0.2;
             }
-            .movie-list {
-                list-style-type: none;
-                padding: 0;
-                margin: 0;
-            }
-            .movie-item {
-                padding: 10px;
-                border-bottom: 1px solid #ccc;
-                border-radius: 5px; /* Añadir bordes redondeados */
-                margin-bottom: 10px; /* Espacio entre películas */
-                background-color: #fff; /* Color de fondo */
-            }
-            .movie-item:hover {
-                background-color: #f4f4f4;
-            }
+  
             .movie-title {
                 font-weight: bold;
                 color: #666;
-            }
-            .movie-release {
-                color: #999;
             }
         </style>
     </head>
@@ -138,9 +124,9 @@ function generateHTMLPage(content: string): string {
             <h1>List of Movies</h1>
         </div>
         <div class="container">
-            <ul class="movie-list">
+            
                 ${content}
-            </ul>
+           
             <div id="movie-details"></div>
         </div>
     </body>
